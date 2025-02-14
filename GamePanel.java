@@ -159,6 +159,10 @@ public class GamePanel extends JPanel {
             aliveZombies--;
             System.out.println("Zombie removed. Alive zombies: " + aliveZombies);
         }
+
+        if(aliveZombies==0){ss
+            roundStarted = false;
+        }
     }
 
     public void killAllZombies() {
