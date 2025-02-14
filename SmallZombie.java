@@ -89,9 +89,9 @@ public class SmallZombie extends Zombie {
             x = newX;
             y = newY;
             draw();
-            randomMovement();
         } else {
             draw();
+            randomMovement();
         }
     }
 
