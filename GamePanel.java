@@ -71,17 +71,14 @@ public class GamePanel extends JPanel {
                 healthUp.collectable = false;
             }
 
-            if (roundStarted && aliveZombies == 0 && player.health > 0) {
-                points++;
-                roundStarted = false;
-                GameWindow.updatePointsDisplay(this.points);
+           
             }
 
             // End game if player is dead
             if (player.health < 1) {
                 killAllZombies();
             }
-        }
+        
     }
 
     public void updateMousePointer(int mouseX, int mouseY) {
@@ -160,8 +157,10 @@ public class GamePanel extends JPanel {
             System.out.println("Zombie removed. Alive zombies: " + aliveZombies);
         }
 
-        if(aliveZombies==0){
+        if (roundStarted && aliveZombies == 0 && player.health > 0) {
+            points++;
             roundStarted = false;
+            GameWindow.updatePointsDisplay(this.points);
         }
     }
 
