@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 public class GiantZombie extends Zombie implements Runnable {
     // Zombie Stats
     private int health = 10;
-    private final int damage = 4;
-    private final int speed = 2;
+    private final int damage = 10;
+    private final int speed = 4;
    
     private final int diameter = 30;
     private final Color color = Color.decode("#051a03");

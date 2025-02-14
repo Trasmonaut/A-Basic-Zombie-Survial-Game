@@ -136,8 +136,8 @@ public class GamePanel extends JPanel {
             spawnGiantZombies();
 
             roundStarted = true;
-            points ++;
-            GameWindow.updatePointsDisplay(points);
+            // points ++;
+            // GameWindow.updatePointsDisplay(points);
         } else if (aliveZombies > 0) {
             System.out.println("Round in Progress. Kill all Alive Zombies First");
         } else if (round > 10) {

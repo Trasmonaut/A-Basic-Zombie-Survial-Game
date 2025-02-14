@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 public class Health extends Thread {
     private int x;
-    private int y ,height, width, spawnrate = 9999;
+    private int y ,height, width, spawnrate = 99999;
     private Color color = Color.decode("#f5e63d");
     public boolean collectable;
 

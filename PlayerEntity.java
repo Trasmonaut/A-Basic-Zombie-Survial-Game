@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class PlayerEntity {
     public int damage = 2;
-    public int  health = 100;
+    public int  health = 50;
     private JPanel panel;
     public int x;
     public int y;

@@ -16,7 +16,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
     private boolean up, down, left, right;
 
     public GameWindow() {
-        setTitle("A Basic Zombie Survival Game 1.0.0");
+        setTitle("A Basic Zombie Survival Game 1.0.1");
         setSize(800, 800);
 
         statusBarL = new JLabel("Application Status: ");
