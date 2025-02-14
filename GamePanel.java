@@ -34,7 +34,8 @@ public class GamePanel extends JPanel {
     private void resetGame() {
         player.erase();
         player.eraseMarker();
-        player.health = 100;
+        player.health = 25;
+        roundStarted = false;
         GameWindow.updateHealthDisplay(player.health);
         spawnHealth();
         points = 0;
