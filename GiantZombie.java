@@ -89,7 +89,7 @@ public class GiantZombie extends Zombie implements Runnable {
            
         } else {
             draw();
-            randomMovement();
+            
         }
     }
 

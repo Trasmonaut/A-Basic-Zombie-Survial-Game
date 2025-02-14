@@ -88,7 +88,7 @@ public class RunnerZombie extends Zombie {
             
         } else {
             draw();
-            randomMovement();
+        
         }
     }
 
