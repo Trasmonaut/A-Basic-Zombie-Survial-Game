@@ -10,7 +10,7 @@ public class GamePanel extends JPanel {
     private int totalZombies;
     private int aliveZombies, spawnedZombies;
     private int points = 0;
-    private boolean roundStarted = false;
+    public boolean roundStarted = false;
     private int smallZCount, runnerZCount, giantZCount, spawnDelay = 300;
     public List<Zombie> allZombies = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
             player = new PlayerEntity(this, 300, 300);
             GameWindow.updateHealthDisplay(player.health);
             spawnHealth();
-            points = -0;
+            points = 0;
             round = 0;
         } else if (aliveZombies == 0) {
             System.out.println("Restarting Game...");
@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
         player.health = 100;
         GameWindow.updateHealthDisplay(player.health);
         spawnHealth();
-        points = -0;
+        points = 0;
         round = 0;
         player = new PlayerEntity(this, 300, 300);
     }
@@ -50,7 +50,7 @@ public class GamePanel extends JPanel {
 
     public void spawnHealth() {
         if (healthUp == null) {
-            healthUp = new Health(this, player);
+            healthUp = new Health(this, player, this);
             healthUp.start();
         }
     }
@@ -125,7 +125,7 @@ public class GamePanel extends JPanel {
     }
 
     public void startNewRound() {
-        if (player.health > 0 && aliveZombies == 0 && round <= 10 &&roundStarted == false) {
+        if (player.health > 0 && aliveZombies == 0 && round <= 10 && !roundStarted) {
             round++;
             First10Rounds(round);
             GameWindow.updateRoundDisplay(this.round);
@@ -136,15 +136,14 @@ public class GamePanel extends JPanel {
             spawnGiantZombies();
 
             roundStarted = true;
-            // points ++;
-        GameWindow.updatePointsDisplay(points);
+            GameWindow.updatePointsDisplay(points);
         } else if (aliveZombies > 0) {
             System.out.println("Round in Progress. Kill all Alive Zombies First");
         } else if (round > 10) {
             System.out.println("Congratulations! You've beat the game! Endless mode coming in Future Update");
         } else if (player.health < 1) {
             System.out.println("Cannot Spawn because Player died");
-        }else{
+        } else {
             System.out.println("Complete current Round First");
         }
     }

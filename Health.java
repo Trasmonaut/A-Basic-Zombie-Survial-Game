@@ -5,47 +5,49 @@ import javax.swing.JPanel;
 
 public class Health extends Thread {
     private int x;
-    private int y ,height, width, spawnrate = 99999;
+    private int y, height, width, spawnrate = 9999;
     private Color color = Color.decode("#f5e63d");
     public boolean collectable;
-
 
     private final JPanel panel;
     public boolean isRunning;
     private final Random random;
 
-    public Health(JPanel p , PlayerEntity player){
+    private final GamePanel gamePanel;
+
+    public Health(JPanel p, PlayerEntity player, GamePanel gamePanel) {
         this.panel = p;
+        this.gamePanel = gamePanel;
         height = 15;
         width = 10;
         random = new Random();
-
     }
 
-    public void draw(){
-        Graphics g = panel.getGraphics();
-        Graphics2D g2 = (Graphics2D) g;
+    public void draw() {
+        if (gamePanel.roundStarted) {
+            Graphics g = panel.getGraphics();
+            Graphics2D g2 = (Graphics2D) g;
 
-        Rectangle2D.Double Health = new Rectangle2D.Double(x, y,width , height);
-        g2.setColor(color);
-        g2.fill(Health);
-        g2.setColor(Color.BLACK);
-        g2.draw(Health);
-        g.dispose();
-
+            Rectangle2D.Double health = new Rectangle2D.Double(x, y, width, height);
+            g2.setColor(color);
+            g2.fill(health);
+            g2.setColor(Color.BLACK);
+            g2.draw(health);
+            g.dispose();
+        }
     }
 
-    public void move(){
+    public void move() {
         erase();
         spawnRandomLocation();
         draw();
     }
-    
-    public void erase(){
+
+    public void erase() {
         Graphics g = panel.getGraphics();
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(panel.getBackground());
-        g2.fill(new Rectangle2D.Double(x , y , height + 10, width + 10));
+        g2.fill(new Rectangle2D.Double(x, y, height + 10, width + 10));
         g.dispose();
     }
 
@@ -59,30 +61,24 @@ public class Health extends Thread {
     @Override
     public void run() {
         isRunning = true;
-        collectable=true;
-        move();
-        while (isRunning){
-            try{
+        collectable = true;
+        while (isRunning) {
+            try {
                 Thread.sleep(spawnrate);
-                if(!collectable){
+                if (!collectable && gamePanel.roundStarted) {
                     spawnRandomLocation();
                     draw();
-                    collectable=true;
-                }else{
+                    collectable = true;
+                } else {
                     move();
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Some error related to Spawning Health and Threads. (Change before production)");
+            }
         }
-        
-            
-        }
-    
     }
 
     public Rectangle2D.Double getBoundingRectangle() {
-        return new Rectangle2D.Double (x, y, width, height);
-     }
-
-    
+        return new Rectangle2D.Double(x, y, width, height);
+    }
 }
