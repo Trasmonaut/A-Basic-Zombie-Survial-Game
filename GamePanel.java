@@ -9,7 +9,7 @@ public class GamePanel extends JPanel {
     private int round;
     private int totalZombies;
     private int aliveZombies, spawnedZombies;
-    private int points = -1;
+    private int points = 0;
     private boolean roundStarted;
     private int smallZCount, runnerZCount, giantZCount, spawnDelay = 300;
     public List<Zombie> allZombies = new ArrayList<>();
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
             player = new PlayerEntity(this, 300, 300);
             GameWindow.updateHealthDisplay(player.health);
             spawnHealth();
-            points = -1;
+            points = -0;
             round = 0;
         } else if (aliveZombies == 0) {
             System.out.println("Restarting Game...");
@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
         player.health = 100;
         GameWindow.updateHealthDisplay(player.health);
         spawnHealth();
-        points = -1;
+        points = -0;
         round = 0;
         player = new PlayerEntity(this, 300, 300);
     }
