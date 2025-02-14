@@ -50,11 +50,20 @@ public class RunnerZombie extends Zombie {
         g.dispose();
     }
 
+    @Override
     public void spawnRandomLocation() {
         int panelWidth = panel.getWidth();
         int panelHeight = panel.getHeight();
-        x = random.nextInt(panelWidth - diameter);
-        y = random.nextInt(panelHeight - diameter);
+        int newx = random.nextInt(panelWidth - diameter);
+        int newy = random.nextInt(panelHeight - diameter);
+
+        if (collidesWithZombie(newx, newy)) {
+            spawnRandomLocation();
+        } else {
+            x = newx;
+            y = newy;
+        }
+
     }
 
     public void move(int targetX, int targetY) {
@@ -192,7 +201,9 @@ public class RunnerZombie extends Zombie {
         return false;
     }
 
-    private void freezeZombie() {
+
+    @Override
+    public void freezeZombie() {
         new Thread(() -> {
             try {
                 Thread.sleep(600); // Freeze duration

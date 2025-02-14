@@ -16,7 +16,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
     private boolean up, down, left, right;
 
     public GameWindow() {
-        setTitle("A Basic Zombie Survival Game 1.0.3.2");
+        setTitle("A Basic Zombie Survival Game 1.0.3.4");
         setSize(800, 800);
 
         statusBarL = new JLabel("Application Status: ");
@@ -111,11 +111,12 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         if (command.equals(pauseButton.getText())){
             System.out.println("Trying to Start new Round...");
             gamePanel.startNewRound();
+            mainPanel.requestFocus();
         }
 
         if (command.equals(LeaderboardButton.getText())){
             System.out.println("Force Focus on GamePanel...");
-            //gamePanel.killAllZombies();
+            gamePanel.killAllZombies();
             mainPanel.requestFocus();
    
         }

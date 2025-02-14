@@ -56,11 +56,18 @@ public class SmallZombie extends Zombie {
     public void spawnRandomLocation() {
         int panelWidth = panel.getWidth();
         int panelHeight = panel.getHeight();
-        x = random.nextInt(panelWidth - diameter);
-        y = random.nextInt(panelHeight - diameter);
+        int newx = random.nextInt(panelWidth - diameter);
+        int newy = random.nextInt(panelHeight - diameter);
+
+        if (collidesWithZombie(newx, newy)) {
+            spawnRandomLocation();
+        } else {
+            x = newx;
+            y = newy;
+        }
+
     }
 
-    @Override
     public void move(int targetX, int targetY) {
         erase();
         int dx = Integer.compare(targetX, x) * speed;
@@ -89,12 +96,12 @@ public class SmallZombie extends Zombie {
             x = newX;
             y = newY;
             draw();
+            
         } else {
             draw();
         
         }
     }
-
     @Override
     public void track(int playerX, int playerY) {
         move(playerX, playerY);
@@ -168,7 +175,7 @@ public class SmallZombie extends Zombie {
         return false;
     }
 
-    private void freezeZombie() {
+    public void freezeZombie() {
         new Thread(() -> {
             try {
                 Thread.sleep(600); // Freeze duration

@@ -53,11 +53,29 @@ public class GiantZombie extends Zombie implements Runnable {
         g.dispose();
     }
 
+    @Override
     public void spawnRandomLocation() {
         int panelWidth = panel.getWidth();
         int panelHeight = panel.getHeight();
-        x = random.nextInt(panelWidth - diameter);
-        y = random.nextInt(panelHeight - diameter);
+        int newx = random.nextInt(panelWidth - diameter);
+        int newy = random.nextInt(panelHeight - diameter);
+
+        if (collidesWithZombie(newx, newy)) {
+            spawnRandomLocation();
+        } else {
+            x = newx;
+            y = newy;
+        }
+
+    }
+    public void freezeZombie() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(600); // Freeze duration
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void move(int targetX, int targetY) {
@@ -77,19 +95,21 @@ public class GiantZombie extends Zombie implements Runnable {
         boolean collisionWithZombie = collidesWithZombie(newX, newY);
 
         if (collisionWithPlayer) {
-           
-         
+            try {
                 hurtPlayer();
                 draw();
-            
+                Thread.currentThread().sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else if (!collisionWithZombie) {
             x = newX;
             y = newY;
             draw();
-           
+            
         } else {
             draw();
-            
+        
         }
     }
 
@@ -160,10 +180,12 @@ public void run() {
         return false;
     }
 
+    @Override
     public Rectangle2D.Double getBoundingRectangle() {
         return new Rectangle2D.Double(x, y, diameter, diameter);
     }
     
+    @Override
     public boolean collidesWithPlayer() {
         Rectangle2D.Double myRect = getBoundingRectangle();
         Rectangle2D.Double playerRect = player.getBoundingRectangle();
@@ -171,6 +193,7 @@ public void run() {
         return myRect.intersects(playerRect); 
     }
 
+    @Override
     public boolean collidesWithZombie(int newX, int newY) {
         Rectangle2D.Double myRect = new Rectangle2D.Double(newX, newY, diameter, diameter);
         for (Zombie zombie : ((GamePanel) panel).allZombies) {
