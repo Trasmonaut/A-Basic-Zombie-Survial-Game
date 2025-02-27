@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Runnable {
     PlayerEntity player;
     Health healthUp;
     private int round;
@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
         player = null;
     }
 
-    public void createGameEntities() {
+    public void createPlayerEntity() {
         if (player == null) {
             player = new PlayerEntity(this, 300, 300);
             GameWindow.updateHealthDisplay(player.health);
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel {
         player = new PlayerEntity(this, 300, 300);
     }
 
-    public void drawGameEntities() {
+    public void drawPlayerEntity() {
         if (player != null) {
             player.draw();
         }
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public void updateGameEntities(int direction) {
+    public void updatePlayerEntities(int direction) {
         if (player != null) {
             player.erase();
             player.eraseMarker();
@@ -71,8 +71,6 @@ public class GamePanel extends JPanel {
                 healthUp.erase();
                 healthUp.collectable = false;
             }
-
-           
             }
 
             // End game if player is dead
@@ -146,9 +144,17 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public void addZombie(Zombie zombie) {
-        if (zombie != null) {
-            allZombies.add(zombie);
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(spawnDelay);
+                if (roundStarted && spawnedZombies < totalZombies) {
+                    startNewRound();
+                    spawnedZombies = totalZombies;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

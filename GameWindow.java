@@ -16,7 +16,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
     private boolean up, down, left, right;
 
     public GameWindow() {
-        setTitle("A Basic Zombie Survival Game 1.0.3.7");
+        setTitle("A Basic Zombie Survival Game 1.0.4.1");
         setSize(800, 800);
 
         statusBarL = new JLabel("Application Status: ");
@@ -102,8 +102,8 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         
         if (command.equals(startButton.getText())) {
             System.out.println("Starting Game...");
-            gamePanel.createGameEntities();
-            gamePanel.drawGameEntities();
+            gamePanel.createPlayerEntity();
+            gamePanel.drawPlayerEntity();
             gamePanel.startNewRound();
             mainPanel.requestFocus();
         }
@@ -174,15 +174,15 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
     }
 
     private void updateMovement() {
-        if (up && right) gamePanel.updateGameEntities(5); // Move diagonally up-right
-        else if (up && left) gamePanel.updateGameEntities(6); // Move diagonally up-left
-        else if (down && right) gamePanel.updateGameEntities(7); // Move diagonally down-right
-        else if (down && left) gamePanel.updateGameEntities(8); // Move diagonally down-left
-        else if (right) gamePanel.updateGameEntities(2);
-        else if (left) gamePanel.updateGameEntities(1);
-        else if (up) gamePanel.updateGameEntities(3);
-        else if (down) gamePanel.updateGameEntities(4);
-        gamePanel.drawGameEntities();
+        if (up && right) gamePanel.updatePlayerEntities(5); // Move diagonally up-right
+        else if (up && left) gamePanel.updatePlayerEntities(6); // Move diagonally up-left
+        else if (down && right) gamePanel.updatePlayerEntities(7); // Move diagonally down-right
+        else if (down && left) gamePanel.updatePlayerEntities(8); // Move diagonally down-left
+        else if (right) gamePanel.updatePlayerEntities(2);
+        else if (left) gamePanel.updatePlayerEntities(1);
+        else if (up) gamePanel.updatePlayerEntities(3);
+        else if (down) gamePanel.updatePlayerEntities(4);
+        gamePanel.drawPlayerEntity();
     }
 
     public void keyTyped(KeyEvent e) {}
