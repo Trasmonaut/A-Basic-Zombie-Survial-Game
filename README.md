@@ -1,5 +1,4 @@
 # A Basic Zombie Survial game made for Intro to Game Programming
-***
 
 ## Game Description
 A simple game about surviving waves of Zombies. Player has been given a sword and dropped into a hoard of 3 types of Zombies with one objective, reach as far as you can. Health Squares will be dropped randomly, but act fast, theyre quite rare.
