@@ -20,3 +20,10 @@ Points are scored for every round cleared (Killing all zombies in that round)
 ## How to run
 Step 1 : Git Clone repository
 Step 2 : In environment, run "Game Application.java" 
+
+## Knowns Bugs:
+### Concurrent Modification Exception Thread - 
+Killing multiple zombies with one hit has a chance of throwing this exception. The soultion to this bug is known, but for the scope of the assiginment related project, this bug would not be fixed. In the current state of the game, each new entity (Player, zombie, health object) is a unqiue thread. As such, keeping track of each one is done individually, by adding them to a list, and runnning the same command over all of them. This is a horribly inefficent way of doing things, but for the scope of the assignment was what was necessary
+
+### Fix
+Convert game to run on a single thread, keepign track of entities in a loop.
